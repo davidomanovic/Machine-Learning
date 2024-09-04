@@ -41,3 +41,9 @@ print(first_ten_integers)
 # Zeros
 ten_zeros = torch.zeros_like(input=first_ten_integers)
 print(ten_zeros)
+
+# Float 32 tensor
+float_32_tensor = torch.tensor([1.1, 2.2, 3.3],
+                               dtype=None,
+                               device=None,
+                               requires_grad=False)
