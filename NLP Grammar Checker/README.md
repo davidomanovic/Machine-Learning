@@ -5,7 +5,7 @@ This project is a simple implementation of a Grammar Checker using a Long Short-
 ### Project Structure
 
 - **data/**: Contains all training data and example sentences. Play around and edit them to your liking (just make sure they are reasonably similar to the vocabulary in the test set)!
-- **src/**: Contains the core logic including the LSTM model, data preprocessing, training, and saving the model.
+- **src/**: Contains the core logic including the LSTM model, data preprocessing, training, and saving the model. If you want to train the model, you have to run the `train.py`
 - **tests/**: Contains a testing script that loads the trained model, runs predictions, and prints the results.
 - **models/**: Contains the model of the Grammar Checker using the LSTM model
 
