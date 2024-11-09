@@ -11,12 +11,7 @@ This project is a simple implementation of a Grammar Checker using a Long Short-
 
 ### Requirements
 
-This project requires Python 3 and the following dependencies:
-
-- `torch`: PyTorch library for deep learning.
-- `numpy`: Library for numerical operations.
-
-You can install the required dependencies by running:
+This project requires Python 3. You can install the required dependencies by running:
 
 ```bash
 pip install -r requirements.txt
