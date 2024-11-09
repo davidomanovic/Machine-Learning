@@ -1,4 +1,4 @@
-# ML Tools
+# Machine Learning
 
 This directory contains implementations of various classical machine learning algorithms, each organized in a dedicated folder. Each subfolder includes code, documentation, and examples for using the algorithm in typical scenarios.
 
