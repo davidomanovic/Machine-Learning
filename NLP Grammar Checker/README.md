@@ -20,7 +20,7 @@ Each project has its own setup instructions. See the `README.md` file within eac
 
 ### Requirements
 
-Most NLP projects rely on modern NLP libraries such as Hugging Face’s `transformers`, `nltk`, `spacy`, and `pandas`. To install general dependencies, run:
+This NLP uses PyTorch and numpy
 
 ```bash
 pip install -r requirements.txt
