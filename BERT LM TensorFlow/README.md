@@ -1,0 +1,1 @@
+Bidirectional encoder representations from transformers (BERT) is a language model introduced in October 2018 by researchers at Google.[1][2] It learns to represent text as a sequence of vectors using self-supervised learning. It uses the encoder-only transformer architecture.
