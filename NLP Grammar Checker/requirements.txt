@@ -1,2 +1,5 @@
-torch==2.1.0
-numpy==1.24.3
+torch==2.1.0          # PyTorch for model building, training, and evaluation
+numpy==1.25.2         # NumPy for array manipulation
+pandas==1.5.3         # For handling data
+scikit-learn==1.2.2   # For metrics 
+tqdm==4.65.0          # For progress bars in training loops
