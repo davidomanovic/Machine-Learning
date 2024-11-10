@@ -81,3 +81,17 @@ class DictionaryLearningModel:
     def reconstruct_matrix(self, U, Sigma, Vt):
         return U @ np.diag(Sigma) @ Vt
 
+    def construct_ENMF(self, A, b, d):
+        # Chooses d amount of random columnss of A
+        indexes = np.random.choice(A.shape[1], d, replace=False)
+    
+        # Create the basis of the random columnss
+        W_plus = A[:, indexes]
+    
+        # Calculates the projection and weights of the matrix in the basis of A
+        P_plus, H_plus = nnproj(W_plus, b)
+    
+        # Returns P_plus, H_plus, W_plus
+        return P_plus, H_plus, W_plus
+
+
