@@ -71,6 +71,13 @@ class DictionaryLearningModel:
         nnP_W = W @ H_p # Calculate the non-negativ projection
         return nnP_W, H_p # Return the nn-projection and nn-weights/latent variables
 
+    def decomposeTruncateData(self, A, d):
+        # Calculate the SVD
+        U, Sigma, Vh = np.linalg.svd(A, full_matrices=False)
+        Sigma = np.diag(Sigma)
+        # Returns Σ_d, W, H from the function truncSVD
+        return truncSVD(U, Sigma, Vh, d)
+
     def reconstruct_matrix(self, U, Sigma, Vt):
         return U @ np.diag(Sigma) @ Vt
 
