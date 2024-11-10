@@ -1,1 +1,3 @@
-
+Hello, this is a test sentence.
+BERT is a transformer-based model.
+Language models are important for understanding text.
