@@ -1,5 +1,6 @@
 import numpy as np
 import matplotlib.pyplot as plt
+from src.dictionary_learning import DictionaryLearningModel as dict
 
 class visualize_MNIST:
     def __init__(self):
@@ -74,11 +75,11 @@ class visualize_MNIST:
         for i in range(len(D)):
     
             # Gets the basis for A with the given value of d in D in
-            Σ_d, W, H = truncSVD(U, Σ, Vh, D[i])
+            Σ_d, W, H = dict.truncSVD(U, Σ, Vh, D[i])
     
             # Calculates the projection of A and bcompare to the basis of A
-            P = orthproj(W, b)
-            Pb = orthproj(W, b_tilde)
+            P = dict.orthproj(W, b)
+            Pb = dict.orthproj(W, b_tilde)
     
             # Plots each of the images
             axes[i, 0].axis('off')
@@ -126,10 +127,10 @@ class visualize_MNIST:
         if onlyComp == True:
     
             # Gets the basis for A with the given value of D
-            W = truncSVD(U, Σ, Vh, D)[1]
+            W = dict.truncSVD(U, Σ, Vh, D)[1]
     
             # Calculates the distance between the projection of b onto W and b
-            distances = columndistance(orthproj(W, bcompare), bcompare)
+            distances = dict.columndistance(dict.orthproj(W, bcompare), bcompare)
     
             # Returns distances
             return distances
@@ -143,11 +144,11 @@ class visualize_MNIST:
             # For loop for each value of d in D
             for (i, d) in enumerate(D):
                 # Gets Σ_d, W, H from the function truncSVD
-                Σ_d, W, H = truncSVD(U, Σ, Vh, d)
+                Σ_d, W, H = dict.truncSVD(U, Σ, Vh, d)
                 # Calculates the norm of the difference between the projection of A onto W and A
-                distancesA[i] = (np.linalg.norm(A - orthproj(W, A)))**2
+                distancesA[i] = (np.linalg.norm(A - dict.orthproj(W, A)))**2
                 # Calculates the norm of the difference between the projection of b onto W and b
-                distances[i] = (np.linalg.norm(bcompare - orthproj(W, bcompare)))**2
+                distances[i] = (np.linalg.norm(bcompare - dict.orthproj(W, bcompare)))**2
     
             # Plots the distance values for A and bcompare for each d value.
             plt.figure(figsize=(12, 9))

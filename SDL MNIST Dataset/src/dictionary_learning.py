@@ -76,7 +76,7 @@ class DictionaryLearningModel:
         U, Sigma, Vh = np.linalg.svd(A, full_matrices=False)
         Sigma = np.diag(Sigma)
         # Returns Σ_d, W, H from the function truncSVD
-        return truncSVD(U, Sigma, Vh, d)
+        return self.truncSVD(U, Sigma, Vh, d)
 
     def reconstruct_matrix(self, U, Sigma, Vt):
         return U @ np.diag(Sigma) @ Vt
@@ -89,7 +89,7 @@ class DictionaryLearningModel:
         W_plus = A[:, indexes]
     
         # Calculates the projection and weights of the matrix in the basis of A
-        P_plus, H_plus = nnproj(W_plus, b)
+        P_plus, H_plus = self.nnproj(W_plus, b)
     
         # Returns P_plus, H_plus, W_plus
         return P_plus, H_plus, W_plus
