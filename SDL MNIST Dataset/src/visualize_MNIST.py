@@ -2,7 +2,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 from src.dictionary_learning import DictionaryLearningModel as dict
 
-class visualize_MNIST:
+class Plotter:
     def __init__(self):
       pass
 

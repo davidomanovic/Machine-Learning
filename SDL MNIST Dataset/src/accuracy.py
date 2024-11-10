@@ -1,7 +1,7 @@
 import numpy as np
 from src.dictionary_learning import DictionaryLearningModel as dict
 
-class accuracy:
+class Accuracy:
     def __init__(self):
         pass
 

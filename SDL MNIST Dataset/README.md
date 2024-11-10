@@ -1,6 +1,6 @@
 # Dictionary Learning with MNIST Dataset
 
-This repository demonstrates the use of **dictionary learning** for unsupervised learning on the MNIST dataset. The goal is to learn a dictionary (a set of basis functions) that can efficiently represent the MNIST images using sparse linear combinations. This project uses only pure math and numpy, no other helper libraries.
+This repository demonstrates the use of **dictionary learning** for unsupervised learning on the MNIST dataset. The goal is to learn a dictionary (a set of basis functions) that can efficiently represent the MNIST images using sparse linear combinations. This project uses only pure math and numpy, no other helper libraries. Take a look at the notebooks for visualization and examples on how to use the code.
 
 The dictionary learning approach finds a set of atoms (basis elements) and then tries to represent each image as a sparse linear combination of these atoms. This technique is often used for tasks like compression, feature extraction, and denoising.
 
