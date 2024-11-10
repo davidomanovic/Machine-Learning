@@ -1,65 +1,96 @@
-from transformers import TFBertForMaskedLM, BertTokenizer
+from transformers import TFBertForQuestionAnswering, BertTokenizerFast
 import tensorflow as tf
 import numpy as np
 
-class BertLM:
-    def __init__(self):
-        # Load pre-trained BERT model and tokenizer
-        self.model = TFBertForMaskedLM.from_pretrained('bert-base-uncased',
-                                                      hidden_dropout_prob=0.3)
-        self.tokenizer = BertTokenizer.from_pretrained('bert-base-uncased')
+class BertQA:
+    def __init__(self, model_name='bert-base-uncased', dropout=0.3):
+        # Initialize the BERT model and tokenizer for question-answering
+        self.model = TFBertForQuestionAnswering.from_pretrained(model_name, hidden_dropout_prob=dropout)
+        self.tokenizer = BertTokenizerFast.from_pretrained(model_name)  # Use BertTokenizerFast
 
-    def encode_input(self, texts, max_length=512):
-        return self.tokenizer(
-            texts,
-            truncation=True,
-            padding='max_length',
-            max_length=max_length,
-            return_tensors='np'
-        )
+    def prepare_training_data(self, contexts, questions, answers, max_length=256):
+        """
+        Prepare the dataset for training by tokenizing inputs and matching start/end positions of answers.
+        """
+        input_ids, attention_masks, start_positions, end_positions = [], [], [], []
+        
+        for context, question, answer in zip(contexts, questions, answers):
+            # Tokenize the context and question
+            encoded = self.tokenizer(
+                question,
+                context,
+                truncation="only_second",
+                max_length=max_length,
+                padding="max_length",
+                return_offsets_mapping=True,  # Only available with fast tokenizer
+                return_tensors="np"
+            )
+            
+            # Find the start and end token positions for the answer
+            start_idx = context.find(answer)
+            end_idx = start_idx + len(answer)
+            
+            offsets = encoded["offset_mapping"][0]
+            start_token = end_token = 0
 
-    def prepare_dataset(self, dataset, batch_size):
-        input_ids = []
-        attention_masks = []
-        for example in dataset:
-            encoded = self.encode_input(example['text'])
-            input_ids.append(encoded['input_ids'])
-            attention_masks.append(encoded['attention_mask'])
+            # Locate start and end positions within the tokenized offsets
+            for i, (start, end) in enumerate(offsets):
+                if start <= start_idx < end:
+                    start_token = i
+                if start < end_idx <= end:
+                    end_token = i
+                    break
 
+            input_ids.append(encoded["input_ids"][0])
+            attention_masks.append(encoded["attention_mask"][0])
+            start_positions.append(start_token)
+            end_positions.append(end_token)
+
+        # Convert lists to numpy arrays and format them as a tf.data.Dataset
         input_ids = np.array(input_ids)
         attention_masks = np.array(attention_masks)
+        start_positions = np.array(start_positions)
+        end_positions = np.array(end_positions)
 
-        input_ids = np.squeeze(input_ids, axis=1)  # Remove the extra dimension
-        attention_masks = np.squeeze(attention_masks, axis=1)
+        return tf.data.Dataset.from_tensor_slices(({
+            "input_ids": input_ids,
+            "attention_mask": attention_masks
+        }, {
+            "start_positions": start_positions,
+            "end_positions": end_positions
+        }))
 
-        dataset = tf.data.Dataset.from_tensor_slices((input_ids, attention_masks))
-        return dataset.batch(batch_size)
+    def train(self, contexts, questions, answers, epochs=3, batch_size=8, max_length=256):
+        # Prepare training data
+        train_dataset = self.prepare_training_data(contexts, questions, answers, max_length).batch(batch_size)
 
-    def train(self, dataset, epochs, batch_size):
-        train_dataset = self.prepare_dataset(dataset, batch_size)
+        # Compile the model
+        optimizer = tf.keras.optimizers.Adam(learning_rate=3e-5)
+        loss = tf.keras.losses.SparseCategoricalCrossentropy(from_logits=True)
+        self.model.compile(optimizer=optimizer, loss=loss)
 
-        # Implement learning rate warm-up and decay
-        lr_schedule = tf.keras.optimizers.schedules.CosineDecayRestarts(
-            initial_learning_rate=5e-6,  # Start with a much smaller learning rate
-            first_decay_steps=1000,
-            t_mul=2.0,
-            m_mul=1.0,
-            alpha=0.0
-        )
-
-        optimizer = tf.keras.optimizers.Adam(learning_rate=lr_schedule, weight_decay=1e-5)
-
-        # Compile the model with Adam optimizer and sparse categorical cross entropy
-        self.model.compile(optimizer=optimizer, loss='sparse_categorical_crossentropy')
-
-        # Gradient clipping
-        optimizer = tf.keras.optimizers.Adam(learning_rate=lr_schedule, clipvalue=1.0)
-
-        # Train the model with early stopping
-        early_stopping = tf.keras.callbacks.EarlyStopping(monitor='loss', patience=3, restore_best_weights=True)
-
-        self.model.fit(train_dataset, epochs=epochs, callbacks=[early_stopping])
+        # Train the model
+        self.model.fit(train_dataset, epochs=epochs)
 
     def save_model(self, path):
+        # Save the model and tokenizer
         self.model.save_pretrained(path)
         self.tokenizer.save_pretrained(path)
+
+    def answer_question(self, context, question):
+        # Tokenize and encode the inputs
+        inputs = self.tokenizer(question, context, return_tensors="tf", truncation=True)
+        
+        # Get the model's answer
+        outputs = self.model(inputs)
+        start_scores, end_scores = outputs.start_logits, outputs.end_logits
+
+        # Find the most probable start and end tokens
+        start = tf.argmax(start_scores, axis=1).numpy()[0]
+        end = tf.argmax(end_scores, axis=1).numpy()[0]
+
+        # Decode the answer
+        answer_tokens = inputs["input_ids"][0][start: end + 1]
+        answer = self.tokenizer.decode(answer_tokens)
+
+        return answer

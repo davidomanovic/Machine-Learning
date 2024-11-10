@@ -1,7 +1,7 @@
 {
   "_name_or_path": "bert-base-uncased",
   "architectures": [
-    "BertForMaskedLM"
+    "BertForQuestionAnswering"
   ],
   "attention_probs_dropout_prob": 0.1,
   "classifier_dropout": null,
