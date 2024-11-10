@@ -1,4 +1,6 @@
-from src.dictionary_learning import dictionary_learning, accuracy
+from src.dictionary_learning import DictionaryLearningModel
+from src.accuracy import accuracy
+
 import numpy as np
 
 # Generate a test set containing 3 different digits
