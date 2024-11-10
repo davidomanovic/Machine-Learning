@@ -1,11 +1,15 @@
+import sys
+import os
 import numpy as np
+sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 from src.dictionary_learning import DictionaryLearningModel as dict
+from src.visualize_MNIST import Plotter as plot
 
 class Accuracy:
     def __init__(self):
         pass
 
-    def distance(B, imagebase, approach, digits, d = 32):
+    def distance(self, B, imagebase, approach, digits, d = 32):
         """ 
         Takes in data in the form of images, and applies the EMNF approach on the data
         and and calculates the distances for the images to the basis of the images
@@ -40,7 +44,7 @@ class Accuracy:
             for (i, dig) in enumerate(digits):
                     
                     # Calculates the lengths to eatch image
-                    distances[i] = dict.distances_SVD(imagebase[:, dig, :], d, B, onlyComp = True)
+                    distances[i] = plot.distances_SVD(imagebase[:, dig, :], d, B, onlyComp = True)
         
         elif approach == "ENMF":
             
@@ -53,7 +57,7 @@ class Accuracy:
         # Returns the distances
         return distances
 
-    def guessImageAndCalculateAccuracies(digits, distances, correctIndicies):
+    def guessImageAndCalculateAccuracies(self, digits, distances, correctIndicies):
         """ 
         Takes in some digits, distance sets and correctIndices and guesses which images each distance set corresponds 
         to and determines its own correctness and accuracy in doing so.
@@ -85,7 +89,7 @@ class Accuracy:
         # Returns the accuracy, guesses and min_values
         return accuracy, guesses, min_values
 
-    def findClassRecalls(guesses, correctIndicies):
+    def findClassRecalls(self, guesses, correctIndicies):
         """ 
         Takes in some digits, distance sets and correctIndices and guesses which images each distance set corresponds 
         to and determines its own correctness and accuracy in doing so.
@@ -130,42 +134,7 @@ class Accuracy:
         # Returns the recalls
         return recalls
 
-    def generate_test(test, digits = np.array([0,1,2]), N = 800):
-
-        """
-        Randomly generates test set.
-        input:
-            test: numpy array. Should be the test data loaded from file
-            digits: python list. Contains desired integers
-            N: int. Amount of test data for each class
-        output:
-            test_sub: (784,len(digits)*N) numpy array. Contains len(digits)*N images
-            test_labels: (len(digits)*N) numpy array. Contains labels corresponding to the images of test_sub
-        """
-
-        assert N <= test.shape[2] , "N needs to be smaller than or equal to the total amount of available test data for each class"
-
-        assert len(digits)<= 10, "List of digits can only contain up to 10 digits"
-
-        # Arrays to store test set and labels
-        test_sub = np.zeros((test.shape[0], len(digits)*N))
-        test_labels = np.zeros(len(digits)*N)
-
-        # Iterate over all digit classes and store test data and labels
-        for i, digit in enumerate(digits):
-            test_sub[:, i*N:(i+1)*N] = test[:,digit,:]
-            test_labels[i*N:(i+1)*N] = digit
-
-        # Indexes to be shuffled 
-        ids = np.arange(0,len(digits)*N)
-
-        # Shuffle indexes
-        np.random.shuffle(ids)
-
-        # Return shuffled data 
-        return test_sub[:,ids], test_labels[ids]
-
-    def prettyTable(dict, digits):
+    def prettyTable(self, dict, digits):
         """
         Print a pretty table from a dictionary of recalls. Is used to print the
         result of the test.

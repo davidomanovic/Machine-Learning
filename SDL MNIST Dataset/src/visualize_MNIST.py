@@ -1,12 +1,15 @@
+import sys
+import os
 import numpy as np
 import matplotlib.pyplot as plt
+sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 from src.dictionary_learning import DictionaryLearningModel as dict
 
 class Plotter:
     def __init__(self):
       pass
 
-    def plotimgs(imgs, nplot=4):
+    def plotimgs(self, imgs, nplot=4):
         """
         Plots the nplot*nplot first images in imgs on an nplot x nplot grid. 
         Assumes heigth = width, and that the images are stored columnwise
@@ -49,7 +52,7 @@ class Plotter:
         fig.tight_layout()
         plt.show()
 
-    def plotOrthProj(b, D, b_tilde):
+    def plotOrthProj(self, b, D, b_tilde):
         """
         Takes in data from an arbitrary image, and applies the SVD approach on the data.
         Then it projects both data sets on the basis made from the A matrix, and plots the
@@ -99,7 +102,7 @@ class Plotter:
     
         plt.show()
 
-    def distances_SVD(A, D, bcompare, onlyComp=False):
+    def distances_SVD(self, A, D, bcompare, onlyComp=False):
         """
         Takes in data in the form of images, and applies the SVD approach on the data
         and calculates the distances of the images to the basis of the images

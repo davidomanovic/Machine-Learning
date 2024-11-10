@@ -4,7 +4,6 @@ import os
 sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 
 from src.dictionary_learning import DictionaryLearningModel 
-from src.visualize_MNIST import visualize_MNIST as plot
 import numpy as np
 
 # Define example matrices for testing
