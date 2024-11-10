@@ -11,7 +11,19 @@ This project is a simple implementation of a Grammar Checker using a Long Short-
 
 ### Requirements
 
-This project requires Python 3. You can install the required dependencies by running:
+1. This project requires Python 3. You can install the required dependencies by running:
 
 ```bash
 pip install -r requirements.txt
+```
+
+2. Prepare your text data in the `data/sentences.txt` file. I have prefilled 30 sentences, and also test sentences.
+
+3. To train the model, run:
+```bash
+python src/train.py
+```
+
+4. The model will be saved to the `models/grammar_checker_model.pth` directory.
+
+5. In `tests/` you can simply run the code after training the model and generating the aforementioned file.
