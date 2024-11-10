@@ -16,15 +16,16 @@ Bidirectional encoder representations from transformers (BERT) is a language mod
 pip install -r requirements.txt
 ```
 
-2. Prepare your text data in the `data/input_text.txt` file.
+2. OPTIONAL: Train model on your data you want
+   - First: edit `models/dataset.json` to your liking.
+   - Second: train the model, run: <br>
+     ```bash
+      python scripts/train.py
+      ```
 
-3. To train the model, run:
-```bash
-python scripts/train.py
-```
+3. You can run tests of your trained BERT model via the `tests/` directory.
 
-
-4. The model will be saved to the `saved_model/bert_lm` directory.
+4. The model will be saved to the `trained_model/` directory.
 
 ## Notes
 
