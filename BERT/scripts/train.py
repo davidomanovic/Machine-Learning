@@ -1,7 +1,12 @@
 import os
+import sys
 import tensorflow as tf
 from datasets import load_dataset
-from model.bert_lm import BertLM
+# Add the project root to sys.path
+sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
+
+from models.bert_lm import BertLM
+
 
 # Load dataset
 def load_text_data(file_path):
@@ -31,4 +36,5 @@ def main():
 
 if __name__ == "__main__":
     main()
+
 
