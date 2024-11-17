@@ -1,31 +1,24 @@
-# ML Tools
+# Machine Learning Tools
 
-This directory contains implementations of various classical machine learning algorithms, each organized in a dedicated folder. Each subfolder includes code, documentation, and examples for using the algorithm in typical scenarios.
+A comprehensive collection of machine learning tools and algorithms implemented across various techniques and models. This repository serves as a toolkit for exploring, learning, and implementing foundational ML concepts.
 
-## Contents
+## Repository Contents
 
-- **SGD (Stochastic Gradient Descent)**
-  - Implementation of the SGD algorithm for optimizing linear models.
-  - Includes examples and tests for tuning learning rate and convergence criteria.
-  
-- **LASSO (Least Absolute Shrinkage and Selection Operator)**
-  - Code for LASSO regression, used for feature selection and regularization.
-  - Includes a demonstration of feature selection on a sample dataset.
-
-- **PCA (Principal Component Analysis)**
-  - PCA implementation for dimensionality reduction.
-  - Notebook with visualizations demonstrating variance explained by each principal component.
-
-- **SVM (Support Vector Machine)**
-  - Support Vector Machine classifier with customizable kernel functions.
-  - Includes sample code to train and evaluate SVM models on classification datasets.
+- **Gaussian MatLab**: Gaussian-related models and implementations in MATLAB.
+- **Gradient Descent**: Optimization algorithms for gradient-based learning.
+- **Kernels**: Tools for working with kernel methods, including SVM and other kernel-based models.
+- **Logistic Regression LASSO**: Logistic regression models with LASSO regularization.
+- **Principal Component Analysis**: Implementation of PCA for dimensionality reduction.
+- **Regression**: General regression models and techniques.
+- **SDL MNIST Dataset**: Tools and datasets related to MNIST.
+- **Statistical Inference**: Statistical methods and inference techniques.
+- **Transformers**: Transformer-based models for NLP and other tasks.
+- **k-means Clustering**: K-means clustering with applications to pulsar data.
 
 ## Getting Started
 
-To use any algorithm in this directory, navigate to the specific folder, review the README for usage details, and install any dependencies if required.
+Clone the repository:
 
-### Requirements
-
-A general list of dependencies can be found below. Each subfolder may also have a `requirements.txt` file specific to that algorithm.
 ```bash
-pip install -r requirements.txt
+git clone https://github.com/davidomanovic/machine-learning-tools.git
+cd ml-toolbox
