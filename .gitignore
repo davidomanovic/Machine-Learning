@@ -3,3 +3,48 @@
 *.zip
 *.csv
 BERT/trained_model/tf_model.h5
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Dependencies
+node_modules/
+vendor/
+
+# Logs
+*.log
+
+# Build directories
+dist/
+build/
+
+# Compiled files
+*.o
+*.pyc
+*.class
+
+# Environment files
+.env
+.env.local
+
+# IDE files
+.vscode/
+.idea/
+*.sublime-*
+
+# Large files
+*.csv
+*.gz
+*.tar
+*.zip
+*.7z
+*.bz2
+
+# Backup files
+*.bak
+*.tmp
+
+# Dataset directories
+data/
+datasets/
