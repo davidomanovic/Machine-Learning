@@ -1,2 +1,5 @@
-
+*.tar
+*.gz
+*.zip
+*.csv
 BERT/trained_model/tf_model.h5
