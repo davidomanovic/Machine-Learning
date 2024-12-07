@@ -1,1 +1,1 @@
-
+This repository contains implementations of Gradient Descent (GD) and Stochastic Gradient Descent (SGD) for linear regression in Python. It includes a source file with the core implementations and a test file with synthetic data validation.
