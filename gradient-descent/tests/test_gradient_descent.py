@@ -1,4 +1,6 @@
+import sys
 import numpy as np
+sys.path.append("src")
 from gradient_descent import GradientDescent, StochasticGradientDescent
 
 # Generate synthetic data
