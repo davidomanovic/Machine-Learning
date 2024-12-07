@@ -2,7 +2,6 @@
 *.gz
 *.zip
 *.csv
-BERT/trained_model/tf_model.h5
 
 # OS files
 .DS_Store
@@ -18,6 +17,9 @@ vendor/
 # Build directories
 dist/
 build/
+
+# Trained models
+*.h5
 
 # Compiled files
 *.o
