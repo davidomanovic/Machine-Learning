@@ -7,7 +7,8 @@ A comprehensive collection of machine learning tools and algorithms implemented 
   <img src="docs/numbers.png" alt="Image 2" width="30%">
   <img src="docs/Histogram.png" alt="Image 3" width="30%">
 </p>
-## Repository Contents
+
+# Repository Contents
 
 - **Gaussian MatLab**: Gaussian-related models and implementations in MATLAB.
 - **Gradient Descent**: Optimization algorithms for gradient-based learning.
